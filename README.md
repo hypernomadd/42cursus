@@ -9,10 +9,10 @@
 |    ft_server   | 000% |       |   07/27 - 07/29  |           |
 |      cub3d     | 000% |       |   07/29 - 08/07  |           |
 |     libasm     | 000% |       |   08/10 - 08/12  |           |
-|   ft_services  | 000% |       |   08/13 - 08/16  |           |
-|    minishell   | 000% |       |        0d        |           |
-|   CPP Modules  |      |       |        0d        |           |
-|  Philosophers  |      |       |        0d        |           |
-|     webserv    |      |       |        0d        |           |
-| ft_contatiners |      |       |        0d        |           |
-|ft_transcendence|      |       |        0d        |           |
+|   ft_services  | 000% |       |   08/13 - 08/19  |           |
+|    minishell   | 000% |       |   08/20 - 08/26  |           |
+|   CPP Modules  | 000% |       |   08/27 - 09/02  |           |
+|  Philosophers  | 000% |       |   09/03 - 09/09  |           |
+|     webserv    | 000% |       |   09/10 - 09/15  |           |
+| ft_contatiners | 000% |       |   09/16 - 09/26  |           |
+|ft_transcendence| 000% |       |   10/02 - 10/10  |           |
