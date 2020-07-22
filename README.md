@@ -11,8 +11,8 @@
 |     libasm     | 000% |       |   08/10 - 08/12  |           |
 |   ft_services  | 000% |       |   08/13 - 08/16  |           |
 |    minishell   | 000% |       |        0d        |           |
-| CPP Modules |      |       |        0d        |           |
-| CPP Modules/01 |      |       |        0d        |           |
-| CPP Modules/02 |      |       |        0d        |           |
-| CPP Modules/03 |      |       |        0d        |           |
-| CPP Modules/04 |      |       |        0d        |           |
+|   CPP Modules  |      |       |        0d        |           |
+|  Philosophers  |      |       |        0d        |           |
+|     webserv    |      |       |        0d        |           |
+| ft_contatiners |      |       |        0d        |           |
+|ft_transcendence|      |       |        0d        |           |
