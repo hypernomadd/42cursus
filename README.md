@@ -15,4 +15,4 @@
 |  Philosophers  | 000% |       |   09/03 - 09/09  |           |
 |     webserv    | 000% |       |   09/10 - 09/15  |           |
 | ft_contatiners | 000% |       |   09/16 - 09/26  |           |
-|ft_transcendence| 000% |       |   10/02 - 10/10  |           |
+|ft_transcendence| 000% |       |   10/02 - 11/11  |           |
