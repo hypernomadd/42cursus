@@ -1,6 +1,6 @@
 # 42cursus
 
-|     Project    | Mark | Retry | Time (estimated) |    Note   |
+|     Project    | Mark | Retry | Date (estimated) |    Note   |
 |:--------------:|:----:|:-----:|:----------------:|:---------:|
 |      libft     | 115% |   1   |   02/24 - 03/01  |           |
 |  get_next_line | 100% |   1   |   07/20 - 07/23  |           |
