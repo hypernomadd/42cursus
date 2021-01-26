@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_one.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chshin <chshin@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/23 16:40:09 by chshin            #+#    #+#             */
+/*   Updated: 2021/01/26 21:20:22 by chshin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_ONE_H
 # define PHILO_ONE_H
 # include <unistd.h>
@@ -34,7 +46,7 @@ typedef struct		s_philo_data
 	long	num_of_meals;
 }					t_pd;
 
-typedef struct			s_philo
+typedef struct		s_philo
 {
 	pthread_t			thread;
 	pthread_mutex_t		*m_left_fork;
@@ -44,17 +56,17 @@ typedef struct			s_philo
 	int					philo_idx;
 	long				last_meal;
 	long				program_start;
-}						t_philo;
+}					t_philo;
 
 /*
 **						input_args.c
 */
-int						input_args(t_pd *pd, const char **argv);
+int					input_args(t_pd *pd, const char **argv);
 /*
 **						init.c
 */
-t_philo					*init_threads(t_pd *pd, t_mutex *mutexes);
-int						init_mutexes(t_mutex *mutexes, t_pd *pd);
+t_philo				*init_threads(t_pd *pd, t_mutex *mutexes);
+int					init_mutexes(t_mutex *mutexes, t_pd *pd);
 /*
 **						finish_threads.c
 */

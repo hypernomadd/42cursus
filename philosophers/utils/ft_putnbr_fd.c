@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chshin <chshin@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/03/20 14:17:04 by chshin            #+#    #+#             */
+/*   Updated: 2021/01/26 21:25:31 by chshin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "utils.h"
 
-static void ft_putchar_fd(char c, int fd)
+static void		ft_putchar_fd(char c, int fd)
 {
 	write(fd, &c, 1);
 }
 
-static void ft_putstr_fd(char *s, int fd)
+static void		ft_putstr_fd(char *s, int fd)
 {
 	while (*s)
 	{

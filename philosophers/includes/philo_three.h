@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_three.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chshin <chshin@student.42seoul.kr>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/23 17:20:05 by chshin            #+#    #+#             */
+/*   Updated: 2021/01/26 21:23:13 by chshin           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_THREE_H
 # define PHILO_THREE_H
 # include <unistd.h>
@@ -40,7 +52,7 @@ typedef struct		s_philo_data
 	long	num_of_meals;
 }					t_pd;
 
-typedef struct			s_philo
+typedef struct		s_philo
 {
 	t_sem				*sems;
 	pid_t				*pid;
@@ -48,17 +60,17 @@ typedef struct			s_philo
 	int					philo_idx;
 	long				last_meal;
 	long				program_start;
-}						t_philo;
+}					t_philo;
 
 /*
 **						input_args.c
 */
-int						input_args(t_pd *pd, const char **argv);
+int					input_args(t_pd *pd, const char **argv);
 /*
 **						init.c
 */
-void					init_struct(t_philo *ph, t_pd *pd, t_sem *sems);
-int						init_sems(t_sem *sems, t_pd *pd);
+void				init_struct(t_philo *ph, t_pd *pd, t_sem *sems);
+int					init_sems(t_sem *sems, t_pd *pd);
 /*
 **						finish_threads.c
 */
