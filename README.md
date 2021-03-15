@@ -13,6 +13,6 @@
 |    libasm      | 100% |   1   |   11/11 - 12/01  |           |
 |   CPP Modules  | 000% |       |   03/15 - 03/22  |     wip   |
 |  Philosophers  | 100% |   1   |   02/09 - 03/09  |           |
-|     ft_irc     | 000% |       |   12/26 - 01/14  |           |
-| ft_contatiners | 000% |       |   01/15 - 01/22  |           |
-|ft_transcendence| 000% |       |   01/23 - 02/28  |           |
+|     ft_irc     | 000% |       |   04/01 - 04/22  |           |
+| ft_contatiners | 000% |       |   03/23 - 03/31  |           |
+|ft_transcendence| 000% |       |   04/22 - 05/31  |           |
