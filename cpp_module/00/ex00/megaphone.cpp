@@ -3,8 +3,7 @@
 
 #define DEFAULT_MESSAGE "* LOUD AND UNBEARABLE FEEDBACK NOISE *"
 
-int
-main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	if (argc <= 1)
 		std::cout << DEFAULT_MESSAGE << std::endl;
