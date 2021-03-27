@@ -40,7 +40,7 @@ void	*is_full(void *tmp_ph)
 
 	ph = (t_philo *)tmp_ph;
 	cnt = 0;
-	while (42 && ph->pd->state != DIED && ph->pd->state != FULL)
+	while (ph->pd->state != DIED && ph->pd->state != FULL)
 	{
 		sem_wait(ph->sems->s_meal);
 		cnt++;
@@ -64,7 +64,7 @@ void	*is_die(void *tmp_ph)
 	t_philo	*ph;
 
 	ph = (t_philo *)tmp_ph;
-	while (42 && ph->pd->state != DIED && ph->pd->state != FULL)
+	while (ph->pd->state != DIED && ph->pd->state != FULL)
 	{
 		if (get_time() - ph->last_meal > ph->pd->time_to_die)
 		{
