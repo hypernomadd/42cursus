@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.class.cpp                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chshin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: chshin <chshin@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/27 16:36:30 by chshin            #+#    #+#             */
-/*   Updated: 2021/03/27 16:37:27 by chshin           ###   ########.fr       */
+/*   Created: 2021/03/27 08:07:48 by chshin            #+#    #+#             */
+/*   Updated: 2021/03/27 08:07:53 by chshin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ void		PhoneBook::search(void)
 		this->contacts[i++].smallPrint();
 	}
 	std::cout << "Pick a index" << std::endl;
-	std::cin >> i;
-	if (i >= 0 && i < this->index)
+	if (std::cin >> i && i >= 0 && i < this->index)
 	{
 		std::cout << "index: " << i << std::endl;
 		this->contacts[i].print();
@@ -44,6 +43,7 @@ void		PhoneBook::search(void)
 	else
 		std::cout << "This index does not match with any contact" << std::endl;
 	std::cin.clear();
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	return ;
 }
 

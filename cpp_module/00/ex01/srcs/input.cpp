@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chshin <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: chshin <chshin@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/27 16:35:39 by chshin            #+#    #+#             */
-/*   Updated: 2021/03/27 16:35:42 by chshin           ###   ########.fr       */
+/*   Created: 2021/03/27 08:05:22 by chshin            #+#    #+#             */
+/*   Updated: 2021/03/27 08:05:27 by chshin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int			main(void)
 	std::string	input;
 	PhoneBook	phonebook;
 
-	while (std::cout << "MENU: ADD - SEARCH - EXIT" << std::endl)
+	while (1)
 	{
+		std::cout << "MENU: ADD - SEARCH - EXIT" << std::endl;
 		std::cin >> input;
 		command(input, &phonebook);
 	}

@@ -104,18 +104,7 @@ fclean:			clean
 
 re:				fclean all
 
-# NORME #
-
-norm:
-				norminette $(DIR_SRCS)
-				norminette $(DIR_HEADERS)
-
-# BONUS #
-
-bonus:			all
-
-re_bonus:		fclean bonus
 
 # PHONY #
 
-.PHONY:			all clean fclean re bonus re_bonus
+.PHONY:			all clean fclean re
