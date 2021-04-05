@@ -14,12 +14,14 @@ int			main(void)
 
 	zombie1 = event.randomChump();
 	zombie1->announce();
+	zombie1->tellname();
 	delete (zombie1); // not needed anymore
-	std::cout << "zombie1 byeeeeeee....." << std::endl;
+	std::cout << " byeeeeeee....." << std::endl;
 	event.setZombieType("not cool");
 	zombie2 = event.newZombie("Hugo");
 	zombie2->announce();
+	zombie2->tellname();
 	delete (zombie2); // not needed anymore
-	std::cout << "zombie2 byeeeeeee....." << std::endl;
+	std::cout << " byeeeeeee....." << std::endl;
 	return (0);
 }

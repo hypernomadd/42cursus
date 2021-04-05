@@ -14,7 +14,7 @@ private:
 public:
 	Zombie(std::string name, std::string type);
 	void	announce(void);
-
+	void	tellname();
 };
 
 #endif

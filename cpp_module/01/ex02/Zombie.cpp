@@ -13,3 +13,9 @@ void		Zombie::announce(void)
 	std::cout << " Braiiiiiiinnnssss..." << std::endl;
 	return ;
 }
+
+void		Zombie::tellname()
+{
+	std::cout << this->name;
+	return ;
+}
