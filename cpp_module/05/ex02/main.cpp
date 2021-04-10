@@ -1,104 +1,57 @@
-#include <cstdlib>
-#include <iostream>
-#include <string>
-
+#include <ctime>
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-#define xassert(exp, msg) \
-	{ \
-		bool ___ok = (exp); \
-		if (___ok) \
-			std::cout << "\e[92mPASSED\e[39m: " << msg << std::endl; \
-		if (!___ok) { \
-			std::cout << "\e[91mFAILED\e[39m: " << msg << "    (line: " << __LINE__ << ")" << std::endl; \
-			exit(1); \
-		} \
-	}
-
-Bureaucrat theBoss("the boss", 1);
-Bureaucrat theIntern("the intern", 150);
-
-Form*
-simple_sign_form_test(Form *form)
+int				main(void)
 {
-	std::string msg;
-
+	Bureaucrat		*bob;
+	Bureaucrat		*joe;
+	Bureaucrat		*kevin;
+	std::srand(std::time(nullptr));
 	try
 	{
-		msg = form->getName() + ": signing unsingned form";
-
-		form->execute(theBoss);
-
-		xassert(false, msg);
+		bob = new Bureaucrat("bob", 150);
+		joe = new Bureaucrat("joe", 1);
+		kevin = new Bureaucrat("kevin", 151);
 	}
 	catch (std::exception &e)
 	{
-		xassert(Form::NotSignedException().what() == e.what(), msg);
+		std::cerr << "Error: " << e.what() << std::endl;
 	}
-
-	form->beSigned(theBoss);
-
+	std::cout << *bob;
+	std::cout << *joe;
 	try
 	{
-		msg = form->getName() + ": boss signing";
-
-		form->execute(theBoss);
-
-		xassert(true, msg);
+		bob->incGrade();
+		joe->incGrade();
 	}
 	catch (std::exception &e)
 	{
-		xassert(false, msg);
+		std::cerr << "Error: " << e.what() << std::endl;
 	}
-
-	try
-	{
-		msg = form->getName() + ": intern signing";
-
-		form->execute(theIntern);
-
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(Form::GradeTooLowException(false).what() == e.what(), msg);
-	}
-
-	std::cout << std::endl;
-
-	return (form);
-}
-
-Form*
-inversed_sign_form_test(Form *form)
-{
-	form->beSigned(theBoss);
-
-	theBoss.executeForm(*form);
-	theIntern.executeForm(*form);
-
-	std::cout << std::endl;
-
-	return (form);
-}
-
-int
-main(void)
-{
-	delete (simple_sign_form_test(new ShrubberyCreationForm("xxx")));
-	delete (simple_sign_form_test(new RobotomyRequestForm("yyy")));
-	delete (simple_sign_form_test(new PresidentialPardonForm("zzz")));
-
-	delete (inversed_sign_form_test(new ShrubberyCreationForm("xxx")));
-	delete (inversed_sign_form_test(new RobotomyRequestForm("yyy")));
-	delete (inversed_sign_form_test(new PresidentialPardonForm("zzz")));
-
-	system("chmod 000 xxx_shrubbery");
-	delete (inversed_sign_form_test(new ShrubberyCreationForm("xxx")));
-
-	system("chmod 777 xxx_shrubbery");
+	std::cout << *bob;
+	std::cout << *joe;
+	Form *form1 = new PresidentialPardonForm("form1");
+	Form *form2 = new RobotomyRequestForm("form2");
+	Form *form3 = new ShrubberyCreationForm("form3");
+	std::cout << *form1;
+	std::cout << *form2;
+	std::cout << *form3;
+	joe->signForm(*form1);
+	joe->signForm(*form3);
+	joe->executeForm(*form1);
+	joe->executeForm(*form2);
+	joe->signForm(*form2);
+	bob->executeForm(*form2);
+	joe->executeForm(*form2);
+	joe->executeForm(*form3);
+	delete(form1);
+	delete(form2);
+	delete(form3);
+	delete(bob);
+	delete(joe);
+	return (0);
 }

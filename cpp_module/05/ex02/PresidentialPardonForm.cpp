@@ -1,40 +1,40 @@
 #include "PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() :
-		Form()
+PresidentialPardonForm::PresidentialPardonForm(void): Form("undefined", 25, 5)
 {
+	return ;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(const std::string target) :
-		Form("Presidential Pardon", target, 25, 5)
+PresidentialPardonForm::~PresidentialPardonForm(void)
 {
+	return ;
 }
 
-PresidentialPardonForm::~PresidentialPardonForm()
+PresidentialPardonForm::PresidentialPardonForm
+(const PresidentialPardonForm &form): Form(form)
 {
+	*this = form;
+	return ;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(
-        const PresidentialPardonForm &other) :
-		Form(other)
+PresidentialPardonForm		&PresidentialPardonForm::operator=
+(const PresidentialPardonForm &form)
 {
-	this->operator =(other);
-}
-
-PresidentialPardonForm&
-PresidentialPardonForm::operator=(const PresidentialPardonForm &other)
-{
-	Form::operator =(other);
-
+	(void)form;
 	return (*this);
 }
 
-void
-PresidentialPardonForm::execute(const Bureaucrat &executor) const
+PresidentialPardonForm::PresidentialPardonForm
+(std::string target): Form(target, 25, 5)
+{
+	return ;
+}
+
+void						PresidentialPardonForm::execute
+(Bureaucrat const &executor) const
 {
 	Form::execute(executor);
-
-	std::cout << getTarget() //
-	        << " has been forgiven by Zafod Beeblebrox" //
-	        << std::endl;
+	std::cout << this->getName() << " has been pardoned by Zafod Beeblebrox.";
+	std::cout << std::endl;
+	return ;
 }

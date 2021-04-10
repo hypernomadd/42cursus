@@ -30,5 +30,5 @@ public:
 	void			vaulthunter_dot_exe(std::string const &target);
 
 };
-
+exit
 #endif

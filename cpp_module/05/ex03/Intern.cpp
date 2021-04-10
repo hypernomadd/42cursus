@@ -1,123 +1,102 @@
 #include "Intern.hpp"
-
-#include <iostream>
-#include <string>
-
 #include "PresidentialPardonForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 
-const std::string Intern::FORM_NAMES[FORM_IMPL_COUNT] =
+Intern::Intern(void)
 {
-	"shrubbery creation",
-	"robotomy request",
-	"presidential pardon"
-};
-
-Form*
-(*Intern::FORM_FACTORIES[FORM_IMPL_COUNT])(const std::string) =
-{
-	&ShrubberyCreationForm::factory,
-	&RobotomyRequestForm::factory,
-	&PresidentialPardonForm::factory
-};
-
-static bool
-insensitiveEquals(unsigned char a, unsigned char b)
-{
-	return std::tolower(a) == std::tolower(b);
+	return ;
 }
 
-static bool
-insensitiveEquals(const std::string &a, const std::string &b)
+Intern::~Intern(void)
 {
-	size_t length = a.length();
-
-	if ((length = a.length()) != b.length())
-		return (false);
-
-	for (size_t index = 0; index < length; ++index)
-	{
-		if (!insensitiveEquals(a.at(index), b.at(index)))
-			return (false);
-	}
-
-	return (true);
+	return ;
 }
 
-Intern::Intern()
+Intern::Intern(const Intern &intern)
 {
+	*this = intern;
+	return ;
 }
 
-Intern::~Intern()
+Intern			&Intern::operator=(const Intern &intern)
 {
-}
-
-Intern::Intern(const Intern &other)
-{
-	this->operator =(other);
-}
-
-Intern&
-Intern::operator=(const Intern &other)
-{
-	(void)other;
-
+	(void)intern;
 	return (*this);
 }
 
-Form*
-Intern::makeForm(const std::string name, const std::string target) const
-{
-	for (int index = 0; index < FORM_IMPL_COUNT; ++index)
+Form			*Intern::findForm(std::string &formName, std::string &targetName)
+{	
+	Form *(Intern::*create[3])(std::string &);
+	std::string functionNames[3] = {"presidential pardon", "robotomy request",
+"shrubbery creation"};
+	Form		*form;
+	int			i;
+
+	create[0] = &Intern::createPresidentialPardonForm;
+	create[1] = &Intern::createRobotomyRequestForm;
+	create[2] = &Intern::createShrubberyCreationForm;
+	form = NULL;
+	for(i = 0; i < 3; i++)
 	{
-		if (insensitiveEquals(Intern::FORM_NAMES[index], name))
-		{
-			Form *form = ((*(Intern::FORM_FACTORIES[index]))(target));
-
-			std::cout << "Intern creates " << form->getName() << std::endl;
-
-			return (form);
-		}
+		if (functionNames[i] == formName)
+			form = (this->*(create[i]))(targetName);
 	}
-
-	throw Intern::FormNotFoundException(name);
+	if (!form)
+		throw(Intern::FormNotFoundException());
+	return (form);
 }
 
-Intern::FormNotFoundException::FormNotFoundException(void) :
-		std::exception(), //
-		_message("Form not found")
+Form			*Intern::makeForm(std::string formName, std::string targetName)
 {
+	Form		*form;
+
+	try
+	{
+		form = this->findForm(formName, targetName);
+	}
+	catch(std::exception &e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+	}
+	return (form);
 }
 
-Intern::FormNotFoundException::FormNotFoundException(const std::string formName) :
-		std::exception(), //
-		_message("Form with name '" + formName + "' is not found")
+Form			*Intern::createPresidentialPardonForm(std::string &target)
 {
+	return (new PresidentialPardonForm(target));
 }
 
-Intern::FormNotFoundException::FormNotFoundException(
-        const FormNotFoundException &other) :
-		std::exception(), //
-		_message(other._message)
+Form			*Intern::createRobotomyRequestForm(std::string &target)
 {
-	this->operator =(other);
+	return (new RobotomyRequestForm(target));
 }
 
-Intern::FormNotFoundException::~FormNotFoundException(void) throw ()
+Form			*Intern::createShrubberyCreationForm(std::string &target)
 {
+	return (new ShrubberyCreationForm(target));
 }
 
-Intern::FormNotFoundException&
-Intern::FormNotFoundException::operator =(const FormNotFoundException &other)
-{
-	(void)other;
+Intern::FormNotFoundException::FormNotFoundException(void) {}
 
+Intern::FormNotFoundException::~FormNotFoundException(void) throw() {}
+
+Intern::FormNotFoundException::FormNotFoundException
+(const Intern::FormNotFoundException &e)
+{
+	*this = e;
+	return ;
+}
+
+Intern::FormNotFoundException		&Intern::FormNotFoundException::operator=
+(const Intern::FormNotFoundException &e)
+{
+	(void)e;
 	return (*this);
 }
 
-const char*
-Intern::FormNotFoundException::what() const throw ()
+const char							*Intern::FormNotFoundException::what
+(void) const throw()
 {
-	return this->_message.c_str();
+	return ("Form Not Found");
 }

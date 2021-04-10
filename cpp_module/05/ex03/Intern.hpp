@@ -1,40 +1,39 @@
-#ifndef INTERN_HPP_
-# define INTERN_HPP_
+#ifndef INTERN_HPP
+# define INTERN_HPP
 
+# include <string>
 # include "Form.hpp"
 
 class Intern
 {
-	private:
-		static const std::string FORM_NAMES[FORM_IMPL_COUNT];
-		static Form *(*FORM_FACTORIES[FORM_IMPL_COUNT])(const std::string);
+
+private:
+
+
+public:
+	Intern(void);
+	~Intern(void);
+	Intern(const Intern &intern);
+	Intern		&operator=(const Intern &intern);
+	
+	Form		*findForm(std::string &formName, std::string &targetName);
+	Form		*makeForm(std::string formName, std::string targetName);
+	Form		*createPresidentialPardonForm(std::string &target);
+	Form		*createRobotomyRequestForm(std::string &target);
+	Form		*createShrubberyCreationForm(std::string &target);
+
+	class FormNotFoundException: public std::exception
+	{
 
 	public:
-		Intern();
-		Intern(const Intern &other);
+		FormNotFoundException(void);
+		virtual ~FormNotFoundException(void) throw();
+		FormNotFoundException(const FormNotFoundException &e);
+		FormNotFoundException		&operator=(const FormNotFoundException &e);
 
-		virtual ~Intern();
+		virtual const char *what(void) const throw();
+	};
 
-		Intern& operator=(const Intern &other);
-
-		Form *makeForm(const std::string name, const std::string target) const;
-
-		class FormNotFoundException : public std::exception
-		{
-			private:
-				const std::string _message;
-
-			public:
-				FormNotFoundException(void);
-				FormNotFoundException(const std::string formName);
-				FormNotFoundException(const FormNotFoundException &other);
-
-				virtual ~FormNotFoundException(void) throw ();
-
-				FormNotFoundException& operator=(const FormNotFoundException &other);
-
-				virtual const char* what() const throw ();
-		};
 };
 
-#endif /* INTERN_HPP_ */
+#endif

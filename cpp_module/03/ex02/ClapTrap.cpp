@@ -120,4 +120,3 @@ void	ClapTrap::beRepaired(unsigned int amount)
 	this->hitPoints += hp_repaired;
 	return ;
 }
-

@@ -1,184 +1,55 @@
-#include <iostream>
-#include <cstdlib>
-
 #include "Bureaucrat.hpp"
 #include "Form.hpp"
 
-#define xassert(exp, msg) \
-	{ \
-		bool ___ok = (exp); \
-		if (___ok) \
-			std::cout << "\e[92mPASSED\e[39m: " << msg << std::endl; \
-		if (!___ok) { \
-			std::cout << "\e[91mFAILED\e[39m: " << msg << "    (line: " << __LINE__ << ")" << std::endl; \
-			exit(1); \
-		} \
-	}
-
-int
-main(void)
+int				main(void)
 {
-	Bureaucrat bureaucrat("enzo", 3);
-	Form form("internship contract", 3, 150);
-
-	bureaucrat.signForm(form);
-	bureaucrat.signForm(form);
-
-	bureaucrat.demote(); // Grade = 4
-	form = Form(); // Reset 'signed' flag
-	bureaucrat.signForm(form);
-
-	bureaucrat.promote(); // Grade = 3
-	form = Form(); // Reset 'signed' flag
-	bureaucrat.signForm(form);
-
-	bureaucrat.promote(); // Grade = 2
-	form = Form(); // Reset 'signed' flag
-	bureaucrat.signForm(form);
-
-	std::string msg;
-
+	Bureaucrat		*bob;
+	Bureaucrat		*joe;
+	Bureaucrat		*kevin;
 	try
 	{
-		msg = "normal: 1 - 1";
-
-		Form("xxx", 1, 1);
-		xassert(true, msg);
+		bob = new Bureaucrat("bob", 150);
+		joe = new Bureaucrat("joe", 1);
+		kevin = new Bureaucrat("kevin", 151);
 	}
 	catch (std::exception &e)
 	{
-		xassert(false, msg);
+		std::cerr << "Error: " << e.what() << std::endl;
 	}
-
+	std::cout << *bob;
+	std::cout << *joe;
 	try
 	{
-		msg = "normal: 1 - 150";
-
-		Form("xxx", 1, 150);
-		xassert(true, msg);
+		bob->incGrade();
+		joe->incGrade();
 	}
 	catch (std::exception &e)
 	{
-		xassert(false, msg);
+		std::cerr << "Error: " << e.what() << std::endl;
 	}
-
+	std::cout << *bob;
+	std::cout << *joe;
+	
+	Form			*form1;
+	Form			*form2;
+	Form			*form3;
 	try
 	{
-		msg = "normal: 150 - 1";
-
-		Form("xxx", 150, 1);
-		xassert(true, msg);
+		form1 = new Form("form1", 150, 150);
+		form2 = new Form("form2", 1, 1);
+		form3 = new Form("form3", 0, 150);
 	}
 	catch (std::exception &e)
 	{
-		xassert(false, msg);
+		std::cerr << "Error: " << e.what() << std::endl;
 	}
-
-	try
-	{
-		msg = "normal: 150 - 150";
-
-		Form("xxx", 150, 150);
-		xassert(true, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(false, msg);
-	}
-
-	try
-	{
-		msg = "slightly off: 0 - 1";
-
-		Form("xxx", 0, 1);
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(e.what() == "Req. grade to sign is too high", msg);
-	}
-
-	try
-	{
-		msg = "slightly off: 1 - 0";
-
-		Form("xxx", 1, 0);
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(e.what() == "Req. grade to execute is too high", msg);
-	}
-
-	try
-	{
-		msg = "completly off: 0 - 0";
-
-		Form("xxx", 0, 0);
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(e.what() == "Req. grade to sign is too high", msg);
-	}
-
-	try
-	{
-		msg = "slightly off: 151 - 150";
-
-		Form("xxx", 151, 150);
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(e.what() == "Req. grade to sign is too low", msg);
-	}
-
-	try
-	{
-		msg = "slightly off: 150 - 151";
-
-		Form("xxx", 150, 151);
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(e.what() == "Req. grade to execute is too low", msg);
-	}
-
-	try
-	{
-		msg = "completly off: 151 - 151";
-
-		Form("xxx", 151, 151);
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(e.what() == "Req. grade to sign is too low", msg);
-	}
-
-	try
-	{
-		msg = "negative: -10 - -10";
-
-		Form("xxx", -10, -10);
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(e.what() == "Req. grade to sign is too high", msg);
-	}
-
-	try
-	{
-		msg = "big: 500 - 500";
-
-		Form("xxx", 500, 500);
-		xassert(false, msg);
-	}
-	catch (std::exception &e)
-	{
-		xassert(e.what() == "Req. grade to sign is too low", msg);
-	}
+	std::cout << *form1;
+	std::cout << *form2;
+	joe->signForm(*form1);
+	bob->signForm(*form2);
+	delete(bob);
+	delete(joe);
+	delete(form1);
+	delete(form2);
+	return (0);
 }

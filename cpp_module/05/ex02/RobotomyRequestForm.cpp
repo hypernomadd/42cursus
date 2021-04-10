@@ -1,57 +1,45 @@
 #include "RobotomyRequestForm.hpp"
 
-#include <unistd.h> /* usleep */
-
-#ifndef FUNNY
-# define FUNNY false
-#endif
-
-RobotomyRequestForm::RobotomyRequestForm() :
-		Form()
+RobotomyRequestForm::RobotomyRequestForm(void): Form("undefined", 72, 45)
 {
+	return ;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const std::string target) :
-		Form("Robotomy Request", target, 72, 45)
+RobotomyRequestForm::~RobotomyRequestForm(void)
 {
+	return ;
 }
 
-RobotomyRequestForm::~RobotomyRequestForm()
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &form)
+: Form(form)
 {
+	*this = form;
+	return ;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &other) :
-		Form(other)
+RobotomyRequestForm		&RobotomyRequestForm::operator=
+(const RobotomyRequestForm &form)
 {
-	this->operator =(other);
-}
-
-RobotomyRequestForm&
-RobotomyRequestForm::operator=(const RobotomyRequestForm &other)
-{
-	Form::operator =(other);
-
+	(void)form;
 	return (*this);
 }
 
-void
-RobotomyRequestForm::execute(const Bureaucrat &executor) const
+RobotomyRequestForm::RobotomyRequestForm
+(std::string target): Form(target, 72, 45)
 {
+	return ;
+}
+
+void					RobotomyRequestForm::execute
+(Bureaucrat const &executor) const
+{
+
 	Form::execute(executor);
-
-	if (FUNNY)
-	{
-		for (int index = 0; index < 4; ++index)
-		{
-			std::cout << '\a' << "brzz... " << std::flush;
-			usleep(200000);
-		}
-	}
+	std::cout << "VRRRRRRR ";
+	if (std::rand() % 2)
+		std::cout << this->getName() << " has been robotomized.";
 	else
-		std::cout << "brzz... brzz... brzz... brzz... ";
-
-	std::cout << std::endl //
-	        << getTarget() //
-	        << " has been successfully robotimized!" //
-	        << std::endl;
+		std::cout << this->getName() << " failed to get robotomized.";
+	std::cout << std::endl;
+	return ;
 }

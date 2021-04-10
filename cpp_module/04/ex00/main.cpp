@@ -31,7 +31,7 @@ main()
 		delete joeByCopy;
 	}
 	
-	std::cout << "--- EXTRA ---" << std::endl;
+	std::cout << "--- EXTRA2 ---" << std::endl;
 	
 	Sorcerer blank(robert);
 

@@ -1,101 +1,63 @@
-#include <iostream>
+#include <string.h>
 #include <fstream>
-#include <cerrno>
-#include <cstring>
-
 #include "ShrubberyCreationForm.hpp"
 
-static const char *SOME_TREE = ""
-		"                                                         \n"
-		"                      ,@@@@@@@,                          \n"
-		"              ,,,.   ,@@@@@@/@@,  .oo8888o.              \n"
-		"           ,&%%&%&&%,@@@@@/@@@@@@,8888\\88/8o            \n"
-		"          ,%&\\%&&%&&%,@@@\\@@@/@@@88\\88888/88'         \n"
-		"           %&&%&%&/%&&%@@\\@@/ /@@@88888\\88888'         \n"
-		"          %&&%/ %&%%&&@@\\ V /@@' `88\\8 `/88'           \n"
-		"          `&%\\ ` /%&'    |.|        \\ '|8'             \n"
-		"              |o|        | |         | |                 \n"
-		"              |.|        | |         | |                 \n"
-		"        jgs \\/ ._\\//_/__/  ,\\_//__\\\\/.  \\_//__/_   \n"
-		" -----------------------------------------------------   \n"
-		"  https://asciiart.website/index.php?art=plants/trees    \n";
-
-ShrubberyCreationForm::ShrubberyCreationForm() :
-		Form()
+ShrubberyCreationForm::ShrubberyCreationForm(void): Form("undefined", 145, 137)
 {
+	return ;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string target) :
-		Form("Shrubbery Creation", target, 145, 137)
+ShrubberyCreationForm::~ShrubberyCreationForm(void)
 {
+	return ;
 }
 
-ShrubberyCreationForm::~ShrubberyCreationForm()
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &form)
+: Form(form)
 {
+	*this = form;
+	return ;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &other) :
-		Form(other)
+ShrubberyCreationForm	&ShrubberyCreationForm::operator=
+(const ShrubberyCreationForm &form)
 {
-	this->operator =(other);
-}
-
-ShrubberyCreationForm&
-ShrubberyCreationForm::operator=(const ShrubberyCreationForm &other)
-{
-	Form::operator =(other);
-
+	(void)form;
 	return (*this);
 }
 
-void
-ShrubberyCreationForm::execute(const Bureaucrat &executor) const
+ShrubberyCreationForm::ShrubberyCreationForm
+(std::string target): Form(target, 145, 137)
 {
+	return ;
+}
+
+void					ShrubberyCreationForm::execute
+(Bureaucrat const &executor) const
+{
+	std::ofstream outfile;	
+
 	Form::execute(executor);
-
-	std::ofstream out;
-
-	out.open((getTarget() + "_shrubbery").c_str(), std::ios::out | std::ios::trunc | std::ios::binary);
-
-	if (!out.is_open())
-		throw ShrubberyCreationForm::IOException();
-
-	out << SOME_TREE;
-
-	out.close();
-}
-
-ShrubberyCreationForm::IOException::IOException(void) :
-		std::exception(), _errno(errno)
-{
-	errno = 0;
-}
-
-ShrubberyCreationForm::IOException::IOException(int errorNo) :
-		std::exception(), _errno(errorNo)
-{
-}
-
-ShrubberyCreationForm::IOException::IOException(const IOException &other) :
-		std::exception(), _errno(other._errno)
-{
-	this->operator =(other);
-}
-
-ShrubberyCreationForm::IOException::~IOException(void) throw ()
-{
-}
-
-ShrubberyCreationForm::IOException&
-ShrubberyCreationForm::IOException::operator =(const IOException &other)
-{
-	(void)other;
-
-	return (*this);
-}
-
-const char*
-ShrubberyCreationForm::IOException::what() const throw ()
-{
-	return (std::strerror(this->_errno));
+	outfile.open(this->getName() + "_shrubbery",
+std::ofstream::out | std::ofstream::trunc);
+	if (outfile.fail())
+		std::cerr << "Error: " << strerror(errno) << std::endl;
+	else
+	{
+		outfile << "                                                         " << std::endl;
+		outfile << "                      ,@@@@@@@,                          " << std::endl;
+		outfile << "              ,,,.   ,@@@@@@/@@,  .oo8888o.              " << std::endl;
+		outfile << "           ,&%%&%&&%,@@@@@/@@@@@@,8888\\88/8o            " << std::endl;
+		outfile << "          ,%&\\%&&%&&%,@@@\\@@@/@@@88\\88888/88'         " << std::endl;
+		outfile << "           %&&%&%&/%&&%@@\\@@/ /@@@88888\\88888'         " << std::endl;
+		outfile << "          %&&%/ %&%%&&@@\\ V /@@' `88\\8 `/88'           " << std::endl;
+		outfile << "          `&%\\ ` /%&'    |.|        \\ '|8'             " << std::endl;
+		outfile << "               |o|        | |         | |                " << std::endl;
+		outfile << "               |.|        | |         | |                " << std::endl;
+		outfile << "      jgs \\/ ._\\//_/__/  ,\\_//__\\\\/.  \\_//__/_     " << std::endl;
+		outfile << " -----------------------------------------------------   " << std::endl;
+		outfile << "  https://asciiart.website/index.php?art=plants/trees    " << std::endl;
+		outfile.close();
+	}
+	return ;
 }

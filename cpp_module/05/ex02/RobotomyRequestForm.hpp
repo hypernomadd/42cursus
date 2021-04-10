@@ -1,20 +1,21 @@
-#ifndef ROBOTOMYREQUESTFORM_HPP_
-# define ROBOTOMYREQUESTFORM_HPP_
+#ifndef ROBOTOMYREQUESTFORM_HPP
+# define ROBOTOMYREQUESTFORM_HPP
 
 # include "Form.hpp"
 
-class RobotomyRequestForm : public Form
+class RobotomyRequestForm: public Form
 {
-	public:
-		RobotomyRequestForm();
-		RobotomyRequestForm(const std::string target);
-		RobotomyRequestForm(const RobotomyRequestForm &other);
 
-		virtual ~RobotomyRequestForm();
+private:
+	RobotomyRequestForm(void);
 
-		RobotomyRequestForm& operator=(const RobotomyRequestForm &other);
+public:
+	~RobotomyRequestForm(void);
+	RobotomyRequestForm(const RobotomyRequestForm &form);
+	RobotomyRequestForm		&operator=(const RobotomyRequestForm &form);
 
-		virtual void execute(Bureaucrat const &executor) const;
+	RobotomyRequestForm(std::string target);
+	void					execute(Bureaucrat const &executor) const;
 };
 
-#endif /* ROBOTOMYREQUESTFORM_HPP_ */
+#endif
