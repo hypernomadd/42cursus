@@ -24,7 +24,6 @@ public:
 	void			ninjaShoebox(NinjaTrap &trap);
 	void			ninjaShoebox(FragTrap &trap);
 	void			ninjaShoebox(ScavTrap &trap);
-
 };
 
 #endif

@@ -25,6 +25,7 @@ ScavTrap::ScavTrap(std::string name): ClapTrap(name)
 	this->maxEnergyPoints = 50;
 	this->level = 1;
 	this->name = name;
+	this->type = "SC4V-TP";
 	this->meleeAttackDamage = 20;
 	this->rangedAttackDamage = 15;
 	this->armorDamageReduction = 3;
@@ -61,9 +62,8 @@ ScavTrap		&ScavTrap::operator=(const ScavTrap &scavTrap)
 
 void	ScavTrap::rangedAttack(std::string const &target)
 {
-	std::cout << "SC4V-TP ";
-	std::cout << this->name;
-	std::cout << " attacks ";
+	says();
+	std::cout << "ScavTrap style attacks ";
 	std::cout << target;
 	std::cout << " at range, causing ";
 	std::cout << this->rangedAttackDamage;
@@ -74,9 +74,8 @@ void	ScavTrap::rangedAttack(std::string const &target)
 
 void	ScavTrap::meleeAttack(std::string const &target)
 {	
-	std::cout << "SC4V-TP ";
-	std::cout << this->name;
-	std::cout << " attacks ";
+	says();
+	std::cout << "ScavTrap style attacks ";
 	std::cout << target;
 	std::cout << " in melee, causing ";
 	std::cout << this->meleeAttackDamage;
@@ -90,6 +89,7 @@ void			ScavTrap::challengeNewcomer(void)
 	std::string challenges[3] = {"Let's dance for 5 seconds !",
 									"You versus me! Me versus you! Either way!",
 									"Hold that door for me please.."};
+	says();
 	std::cout << challenges[rand() % 3] << std::endl;
 	return ;
 }

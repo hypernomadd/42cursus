@@ -24,6 +24,7 @@ int		main(void)
 	frgtrp->vaulthunter_dot_exe("Joe");
 	frgtrp->vaulthunter_dot_exe("Joe");
 	frgtrp->vaulthunter_dot_exe("Joe");
+	std::cout << std::endl;
 	scvtrp = new ScavTrap("Raoul");
 	scvtrp->rangedAttack("Fred");	
 	scvtrp->meleeAttack("Fred");	
@@ -34,6 +35,7 @@ int		main(void)
 	scvtrp->challengeNewcomer();
 	scvtrp->challengeNewcomer();
 	scvtrp->challengeNewcomer();
+	std::cout << std::endl;
 	nnjtrp = new NinjaTrap("Victor");
 	nnjtrp->rangedAttack("Hugo");	
 	nnjtrp->meleeAttack("Hugo");	
@@ -44,6 +46,7 @@ int		main(void)
 	nnjtrp->ninjaShoebox(*nnjtrp);
 	nnjtrp->ninjaShoebox(*scvtrp);
 	nnjtrp->ninjaShoebox(*frgtrp);
+	std::cout << std::endl;
 	sprtrp = new SuperTrap("Bernard");
 	sprtrp->rangedAttack("Fred");
 	sprtrp->meleeAttack("Fred");
@@ -53,6 +56,7 @@ int		main(void)
 	sprtrp->beRepaired(120);
 	sprtrp->vaulthunter_dot_exe("Joe");
 	sprtrp->ninjaShoebox(*nnjtrp);
+	std::cout << std::endl;
 	delete(frgtrp);
 	delete(scvtrp);
 	delete(nnjtrp);

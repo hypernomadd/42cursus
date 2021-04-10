@@ -9,7 +9,7 @@ ScavTrap::ScavTrap(void)
 	this->energyPoints = 50;
 	this->maxEnergyPoints = 50;
 	this->level = 1;
-	this->name = "CL4P-TP";
+	this->name = "SC4V-TP";
 	this->meleeAttackDamage = 20;
 	this->rangedAttackDamage = 15;
 	this->armorDamageReduction = 3;
@@ -127,6 +127,6 @@ void			ScavTrap::challengeNewcomer(void)
 	std::string challenges[3] = {"Let's dance for 5 seconds !",
 									"You versus me! Me versus you! Either way!",
 									"Hold that door for me please.."};
-	std::cout << challenges[rand() % 3] << std::endl;
+	std::cout << challenges[std::rand() % 3] << std::endl;
 	return ;
 }

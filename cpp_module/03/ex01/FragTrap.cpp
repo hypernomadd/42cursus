@@ -9,12 +9,12 @@ FragTrap::FragTrap(void)
 	this->energyPoints = 100;
 	this->maxEnergyPoints = 100;
 	this->level = 1;
-	this->name = "CL4P-TP";
+	this->name = "FR4G-TP";
 	this->meleeAttackDamage = 30;
 	this->rangedAttackDamage = 20;
 	this->armorDamageReduction = 5;
 	std::cout << "Booting sequence complete. Hello! I am your new steward bot.";
-	std::cout << " Designation: CL4P-TP, Hyperion Robot, Class C.";
+	std::cout << " Designation: FR4G-TP, Hyperion Robot, Class C.";
 	std::cout << " Please adjust factory settings to meet your needs";
 	std::cout << " before deployment." << std::endl;
 	return ;

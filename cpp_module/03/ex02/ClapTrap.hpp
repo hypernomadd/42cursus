@@ -13,6 +13,7 @@ protected:
 	int				maxEnergyPoints;
 	int				level;
 	std::string		name;
+	std::string		type;
 	int				meleeAttackDamage;
 	int				rangedAttackDamage;
 	int				armorDamageReduction;
@@ -27,6 +28,7 @@ public:
 	void			meleeAttack(std::string const &target);
 	void			takeDamage(unsigned int amount);
 	void			beRepaired(unsigned int amount);
+	std::ostream	&says();
 
 };
 

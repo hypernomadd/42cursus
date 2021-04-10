@@ -9,11 +9,13 @@ FragTrap::FragTrap(void): ClapTrap()
 	this->energyPoints = 100;
 	this->maxEnergyPoints = 100;
 	this->level = 1;
+	this->name = "FragTrap";
+	this->type = "FR4G-TP";
 	this->meleeAttackDamage = 30;
 	this->rangedAttackDamage = 20;
 	this->armorDamageReduction = 5;
 	std::cout << "Booting sequence complete. Hello! I am your new steward bot.";
-	std::cout << " Designation: CL4P-TP, Hyperion Robot, Class C.";
+	std::cout << " Designation: FR4G-TP, Hyperion Robot, Class C.";
 	std::cout << " Please adjust factory settings to meet your needs";
 	std::cout << " before deployment." << std::endl;
 	return ;
@@ -29,6 +31,8 @@ FragTrap::FragTrap(std::string name): ClapTrap(name)
 	this->meleeAttackDamage = 30;
 	this->rangedAttackDamage = 20;
 	this->armorDamageReduction = 5;
+	this->name = name;
+	this->type = "FR4G-TP";
 	std::cout << "Booting sequence complete. Hello! I am your new steward bot.";
 	std::cout << " Designation: " << this->name << ", Hyperion Robot, Class C.";
 	std::cout << " Please adjust factory settings to meet your needs";
@@ -63,11 +67,11 @@ FragTrap		&FragTrap::operator=(const FragTrap &fragTrap)
 	return (*this);
 }
 
+
 void	FragTrap::rangedAttack(std::string const &target)
 {
-	std::cout << "FR4G-TP ";
-	std::cout << this->name;
-	std::cout << " attacks ";
+	says();
+	std::cout << "FragTrap style attacks ";
 	std::cout << target;
 	std::cout << " at range, causing ";
 	std::cout << this->rangedAttackDamage;
@@ -78,13 +82,12 @@ void	FragTrap::rangedAttack(std::string const &target)
 
 void	FragTrap::meleeAttack(std::string const &target)
 {	
-	std::cout << "FR4G-TP ";
-	std::cout << this->name;
-	std::cout << " attacks ";
+	says();
+	std::cout << "FragTrap style attacks ";
 	std::cout << target;
 	std::cout << " in melee, causing ";
 	std::cout << this->meleeAttackDamage;
-	std::cout << " points of damage!";
+	std::cout << "points of damage!";
 	std::cout << std::endl;
 	return ;
 }
@@ -100,17 +103,15 @@ void	FragTrap::vaulthunter_dot_exe(std::string const &target)
 
 	if (this->energyPoints < 25)
 	{
-		std::cout << "FR4G-TP ";
-		std::cout << this->name;
-		std::cout << " don't have enough energy.";
+		says();
+		std::cout << "don't have enough energy.";
 		std::cout << std::endl;
 	}
 	else
 	{
 		nb = std::rand() % 5;
-		std::cout << "FR4G-TP ";
-		std::cout << this->name;
-		std::cout << " attacks ";
+		says();
+		std::cout << "attacks ";
 		std::cout << target;
 		std::cout << " with '";
 		std::cout << attacks[nb];

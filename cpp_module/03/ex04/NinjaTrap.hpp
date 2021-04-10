@@ -6,7 +6,7 @@
 # include "FragTrap.hpp"
 # include "ScavTrap.hpp"
 
-class NinjaTrap: public virtual ClapTrap
+class NinjaTrap: virtual public ClapTrap
 {
 
 private:
@@ -15,7 +15,7 @@ private:
 public:
 	NinjaTrap(void);
 	NinjaTrap(std::string name);
-	~NinjaTrap(void);
+	virtual ~NinjaTrap(void);
 	NinjaTrap(const NinjaTrap &ninjaTrap);
 	NinjaTrap		&operator=(const NinjaTrap &ninjaTrap);
 	void			rangedAttack(std::string const &target);
@@ -24,7 +24,6 @@ public:
 	void			ninjaShoebox(NinjaTrap &trap);
 	void			ninjaShoebox(FragTrap &trap);
 	void			ninjaShoebox(ScavTrap &trap);
-
 };
 
 #endif

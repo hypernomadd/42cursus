@@ -9,7 +9,8 @@ ClapTrap::ClapTrap(void)
 	this->energyPoints = 0;
 	this->maxEnergyPoints = 0;
 	this->level = 0;
-	this->name = "CL4P-TP";
+	this->name = "ClapTrap";
+	this->type = "CL4P-TP";
 	this->meleeAttackDamage = 0;
 	this->rangedAttackDamage = 0;
 	this->armorDamageReduction = 0;
@@ -24,6 +25,7 @@ ClapTrap::ClapTrap(std::string name)
 	this->energyPoints = 0;
 	this->maxEnergyPoints = 0;
 	this->name = name;
+	this->type = "CL4P-TP";
 	this->meleeAttackDamage = 0;
 	this->rangedAttackDamage = 0;
 	this->armorDamageReduction = 0;
@@ -56,11 +58,15 @@ ClapTrap		&ClapTrap::operator=(const ClapTrap &clapTrap)
 	return (*this);
 }
 
-void			ClapTrap::rangedAttack(std::string const &target)
+std::ostream	&ClapTrap::says()
 {
-	std::cout << "CL4P-TP ";
-	std::cout << this->name;
-	std::cout << " attacks ";
+	return (std::cout << "<" << this->type << "-" << this->name << "> ");
+}
+
+void	ClapTrap::rangedAttack(std::string const &target)
+{
+	says();
+	std::cout << "attacks ";
 	std::cout << target;
 	std::cout << " at range, causing ";
 	std::cout << this->rangedAttackDamage;
@@ -69,11 +75,10 @@ void			ClapTrap::rangedAttack(std::string const &target)
 	return ;
 }
 
-void			ClapTrap::meleeAttack(std::string const &target)
+void	ClapTrap::meleeAttack(std::string const &target)
 {	
-	std::cout << "CL4P-TP ";
-	std::cout << this->name;
-	std::cout << " attacks ";
+	says();
+	std::cout << "attacks ";
 	std::cout << target;
 	std::cout << " in melee, causing ";
 	std::cout << this->meleeAttackDamage;
@@ -82,7 +87,7 @@ void			ClapTrap::meleeAttack(std::string const &target)
 	return ;
 }
 
-void			ClapTrap::takeDamage(unsigned int amount)
+void	ClapTrap::takeDamage(unsigned int amount)
 {	
 	int			dmg_taken;
 
@@ -91,9 +96,8 @@ void			ClapTrap::takeDamage(unsigned int amount)
 		dmg_taken = 0;
 	if (dmg_taken > this->hitPoints)
 		dmg_taken = this->hitPoints;
-	std::cout << "CL4P-TP ";
-	std::cout << this->name;
-	std::cout << " taking ";
+	says();
+	std::cout << "taking ";
 	std::cout << dmg_taken;
 	std::cout << " damage.";
 	std::cout << std::endl;
@@ -101,16 +105,15 @@ void			ClapTrap::takeDamage(unsigned int amount)
 	return ;
 }
 
-void			ClapTrap::beRepaired(unsigned int amount)
+void	ClapTrap::beRepaired(unsigned int amount)
 {
 	int			hp_repaired;
 
 	hp_repaired = amount;
 	if (this->hitPoints + hp_repaired > this->maxHitPoints)
 		hp_repaired = this->maxHitPoints - this->hitPoints;
-	std::cout << "CL4P-TP ";
-	std::cout << this->name;
-	std::cout << " repaired of ";
+	says();
+	std::cout << "repaired of ";
 	std::cout << hp_repaired;
 	std::cout << " damage.";
 	std::cout << std::endl;

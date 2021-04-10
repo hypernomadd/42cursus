@@ -11,23 +11,23 @@ SuperTrap::SuperTrap(void): ClapTrap()
 	this->meleeAttackDamage = 60;
 	this->rangedAttackDamage = 20;
 	this->armorDamageReduction = 5;
-	std::cout << "This is a bird, this is a plain, no this is SUP3R-TP";
- 	std::cout << std::endl;
+	std::cout << "I am SUP3R-TP!!!!" << std::endl;
 	return ;
 }
 
 SuperTrap::SuperTrap(std::string name): ClapTrap(name)
-{	
+{
 	this->hitPoints = 100;
 	this->maxHitPoints = 100;
 	this->energyPoints = 120;
 	this->maxEnergyPoints = 120;
 	this->level = 1;
+	this->name = name;
+	this->type = "SUP3R-TP";
 	this->meleeAttackDamage = 60;
 	this->rangedAttackDamage = 20;
 	this->armorDamageReduction = 5;
-	std::cout << "This is a bird, this is a plain, no this is SUP3R-TP";
- 	std::cout << std::endl;
+	std::cout << "I am SUP3R-TP!!!!" << std::endl;
 	return ;
 }
 

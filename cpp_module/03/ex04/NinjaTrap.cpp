@@ -8,10 +8,12 @@ NinjaTrap::NinjaTrap(void): ClapTrap()
 	this->energyPoints = 120;
 	this->maxEnergyPoints = 120;
 	this->level = 1;
+	this->name = "NinjaTrap";
+	this->type = "NINJ4-TP";
 	this->meleeAttackDamage = 60;
 	this->rangedAttackDamage = 5;
 	this->armorDamageReduction = 0;
-	std::cout << "NINJAAAAAAAAAAAAAAAAAAAAAA." << std::endl;
+	std::cout << "I'm a robot ninja..." << std::endl;
 	return ;
 }
 
@@ -22,16 +24,18 @@ NinjaTrap::NinjaTrap(std::string name): ClapTrap(name)
 	this->energyPoints = 120;
 	this->maxEnergyPoints = 120;
 	this->level = 1;
+	this->name = name;
+	this->type = "NINJ4-TP";
 	this->meleeAttackDamage = 60;
 	this->rangedAttackDamage = 5;
 	this->armorDamageReduction = 0;
-	std::cout << "NINJAAAAAAAAAAAAAAAAAAAAAA." << std::endl;
+	std::cout << "I'm a robot ninja..." << std::endl;
 	return ;
 }
 
 NinjaTrap::~NinjaTrap(void)
 {
-	std::cout << "NINJA DED." << std::endl;
+	std::cout << "NINJA DEAD." << std::endl;
 	return ;
 }
 
@@ -57,9 +61,8 @@ NinjaTrap			&NinjaTrap::operator=(const NinjaTrap &ninjaTrap)
 
 void			NinjaTrap::rangedAttack(std::string const &target)
 {
-	std::cout << "NINJ4-TP ";
-	std::cout << this->name;
-	std::cout << " attacks ";
+	says();
+	std::cout << "NinjaTrap style attacks ";
 	std::cout << target;
 	std::cout << " at range, causing ";
 	std::cout << this->rangedAttackDamage;
@@ -70,9 +73,8 @@ void			NinjaTrap::rangedAttack(std::string const &target)
 
 void			NinjaTrap::meleeAttack(std::string const &target)
 {	
-	std::cout << "NINJ4-TP ";
-	std::cout << this->name;
-	std::cout << " attacks ";
+	says();
+	std::cout << "NinjaTrap style attacks ";
 	std::cout << target;
 	std::cout << " in melee, causing ";
 	std::cout << this->meleeAttackDamage;
@@ -83,24 +85,28 @@ void			NinjaTrap::meleeAttack(std::string const &target)
 
 void				NinjaTrap::ninjaShoebox(ClapTrap &trap)
 {
+	says();
 	std::cout << "Ninjaaa on CL4P-TP " << trap.getName() << std::endl;
 	return ;
 }
 
 void				NinjaTrap::ninjaShoebox(NinjaTrap &trap)
 {
+	says();
 	std::cout << "Ninjaaa on NINJ4-TP " << trap.getName() << std::endl;
 	return ;
 }
 
 void				NinjaTrap::ninjaShoebox(FragTrap &trap)
 {
+	says();
 	std::cout << "Ninjaaa on FR4G-TP " << trap.getName() << std::endl;
 	return ;
 }
 
 void				NinjaTrap::ninjaShoebox(ScavTrap &trap)
 {
+	says();
 	std::cout << "Ninjaaa on SC4V-TP " << trap.getName() << std::endl;
 	return ;
 }
