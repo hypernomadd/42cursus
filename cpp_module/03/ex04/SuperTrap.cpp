@@ -8,6 +8,8 @@ SuperTrap::SuperTrap(void): ClapTrap()
 	this->energyPoints = 120;
 	this->maxEnergyPoints = 120;
 	this->level = 1;
+	this->name = "SuperTrap";
+	this->type = "SUP3R-TP";
 	this->meleeAttackDamage = 60;
 	this->rangedAttackDamage = 20;
 	this->armorDamageReduction = 5;
