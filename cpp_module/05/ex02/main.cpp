@@ -11,6 +11,9 @@ int				main(void)
 	Bureaucrat		*joe;
 	Bureaucrat		*kevin;
 	std::srand(std::time(nullptr));
+	
+	std::cout << "--- Basic TEST ---" << std::endl;
+	std::cout << "Bob : 150/ joe : 1/ kevin : 151" << std::endl;
 	try
 	{
 		bob = new Bureaucrat("bob", 150);
@@ -23,6 +26,9 @@ int				main(void)
 	}
 	std::cout << *bob;
 	std::cout << *joe;
+	
+	std::cout << std::endl;
+	std::cout << "--- Grade inc TEST ---" << std::endl;
 	try
 	{
 		bob->incGrade();
@@ -34,6 +40,9 @@ int				main(void)
 	}
 	std::cout << *bob;
 	std::cout << *joe;
+	
+	std::cout << std::endl;
+	std::cout << "--- Form TEST ---" << std::endl;
 	Form *form1 = new PresidentialPardonForm("form1");
 	Form *form2 = new RobotomyRequestForm("form2");
 	Form *form3 = new ShrubberyCreationForm("form3");
