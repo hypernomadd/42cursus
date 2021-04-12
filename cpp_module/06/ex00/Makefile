@@ -1,122 +1,121 @@
-## PIMPED MAKEFILE ##
+NAME	= convert
+SRCS	= main.cpp Number.cpp
+OBJS	= $(SRCS:.cpp=.o)
+CPPC	= clang++
+FLAGS	= -std=c++98 -Wall -Wextra -Werror
 
-# COLORS #
+MULTI	= false
+COLORED	= false
 
-# This is a minimal set of ANSI/VT100 color codes
-_END		=	\e[0m
-_BOLD		=	\e[1m
-_UNDER		=	\e[4m
-_REV		=	\e[7m
+.cpp.o:
+	$(CPPC) $(FLAGS) -c $< -o $@ -D MULTI=$(MULTI) -D COLORED=$(COLORED)
 
-# Colors
-_GREY		=	\e[30m
-_RED		=	\e[31m
-_GREEN		=	\e[32m
-_YELLOW		=	\e[33m
-_BLUE		=	\e[34m
-_PURPLE		=	\e[35m
-_CYAN		=	\e[36m
-_WHITE		=	\e[37m
+$(NAME): $(OBJS)
+	$(CPPC) $(FLAGS) $(OBJS) -o $(NAME)
 
-# Inverted, i.e. colored backgrounds
-_IGREY		=	\e[40m
-_IRED		=	\e[41m
-_IGREEN		=	\e[42m
-_IYELLOW	=	\e[43m
-_IBLUE		=	\e[44m
-_IPURPLE	=	\e[45m
-_ICYAN		=	\e[46m
-_IWHITE		=	\e[47m
-
-# **************************************************************************** #
-
-## VARIABLES ##
-
-# COMPILATION #
-
-CC			=	clang++
-
-CC_FLAGS	=	-Wall -Wextra -Werror
-
-
-# DELETE #
-
-RM			=	rm -rf
-
-
-# DIRECTORIES #
-
-DIR_HEADERS =	./
-
-DIR_SRCS	=	./
-
-DIR_OBJS	=	./compiled_srcs/
-
-
-# FILES #
-
-SRC			=	convert.cpp \
-				Conversion.cpp
-
-SRCS		=	$(SRC)
-
-# COMPILED_SOURCES #
-
-OBJS 		=	$(SRCS:%.cpp=$(DIR_OBJS)%.o)
-
-NAME 		=	convert
-
-
-# **************************************************************************** #
-
-## RULES ##
-
-all:			$(NAME)
-
-# VARIABLES RULES #
-
-$(NAME):		$(OBJS)
-				@printf "\033[2K\r$(_GREEN) All files compiled into '$(DIR_OBJS)'. $(_END)✅\n"
-				@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) $(OBJS) -o $(NAME)
-				@printf "$(_GREEN) Executable '$(NAME)' created. $(_END)✅\n"
-
-# COMPILED_SOURCES RULES #
-
-$(OBJS):		| $(DIR_OBJS)
-
-
-$(DIR_OBJS)%.o: $(DIR_SRCS)%.cpp
-				@$(CC) $(CC_FLAGS) -I $(DIR_HEADERS) -c $< -o $@
-				@printf "\033[2K\r $(_YELLOW)Compiling $< $(_END)⌛"
-
-$(DIR_OBJS):
-				@mkdir $(DIR_OBJS)
-
-
-# OBLIGATORY PART #
+all: $(NAME)
 
 clean:
-				@$(RM) $(DIR_OBJS)
-				@printf "$(_RED) '"$(DIR_OBJS)"' has been deleted. $(_END)🗑️\n"
+	rm -f $(OBJS)
 
-fclean:			clean
-				@$(RM) $(NAME)
-				@printf "$(_RED) '"$(NAME)"' has been deleted. $(_END)🗑️\n"
+fclean: clean
+	rm -f $(NAME)
 
-re:				fclean all
+re: fclean all
 
-# NORME #
+test: all
+	./$(NAME) c
+	@echo
+	./$(NAME) a
+	@echo
+	./$(NAME) 0
+	@echo
+	./$(NAME) 42
+	@echo
+	./$(NAME) -42
+	@echo
+	./$(NAME) 0f
+	@echo
+	./$(NAME) 42f
+	@echo
+	./$(NAME) -42f
+	@echo
+	./$(NAME) 0.0f
+	@echo
+	./$(NAME) 42.0f
+	@echo
+	./$(NAME) -42.0f
+	@echo
+	./$(NAME) 4.2f
+	@echo
+	./$(NAME) -4.2f
+	@echo
+	./$(NAME) 42.f
+	@echo
+	./$(NAME) -42.f
+	@echo
+	./$(NAME) 0.0
+	@echo
+	./$(NAME) 42.0
+	@echo
+	./$(NAME) -42.0
+	@echo
+	./$(NAME) 4.2
+	@echo
+	./$(NAME) -4.2
+	@echo
+	./$(NAME) 42.
+	@echo
+	./$(NAME) -42.
+	@echo
+	./$(NAME) inff
+	@echo
+	./$(NAME) -inff
+	@echo
+	./$(NAME) nanf
+	@echo
+	./$(NAME) inf
+	@echo
+	./$(NAME) -inf
+	@echo
+	./$(NAME) nan
+	@echo
+	./$(NAME) +0
+	@echo
+	./$(NAME) -0
+	@echo
+	./$(NAME) 42.0042
 
-norm:
-				norminette $(DIR_SRCS)
-				norminette $(DIR_HEADERS)
+test-error: all
+	! ./$(NAME) ""
+	@echo
+	! ./$(NAME) +
+	@echo
+	! ./$(NAME) ++
+	@echo
+	! ./$(NAME) -
+	@echo
+	! ./$(NAME) --
+	@echo
+	! ./$(NAME) 0..0
+	@echo
+	! ./$(NAME) 0..
+	@echo
+	! ./$(NAME) ..0
+	@echo
+	! ./$(NAME) +nan
+	@echo
+	! ./$(NAME) +nanf
+	@echo
+	! ./$(NAME) -nan
+	@echo
+	! ./$(NAME) -nanf
+	@echo
+	! ./$(NAME) aa
+	@echo
+	! ./$(NAME) 0123a
 
-# BONUS #
 
-bonus:			all
+test-all: all test test-error
 
-re_bonus:		fclean bonus
-
-# PHONY #
-
-.PHONY:			all clean fclean re bonus re_bonus
+.PHONY: all re clean fclean .cpp.o test test-error
