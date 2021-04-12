@@ -8,14 +8,14 @@ struct Data { std::string s1; int n; std::string s2; };
 void*	serialize() {
 
 	const char	alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-	const int	n = arc4random();
+	const int	n = std::rand();
 	char*		data = new char[2 * sizeof(std::string) + sizeof(int)]();
 	std::string	s1, s2;
 
 
 	for (int i=0; i < 8; i++) {
-		s1 += alphanum[arc4random_uniform(sizeof(alphanum))];
-		s2 += alphanum[arc4random_uniform(sizeof(alphanum))];
+		s1 += alphanum[std::rand() % (sizeof(alphanum))];
+		s2 += alphanum[std::rand() % (sizeof(alphanum))];
 	}
 
 	memcpy(data, &s1, sizeof(s1));
@@ -44,6 +44,7 @@ Data*	deserialize(void* raw) {
 
 int	main(void) {
 
+	std::srand(time(0));
 	void*	data = serialize();
 	Data*	clean_data = deserialize(data);
 
