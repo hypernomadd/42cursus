@@ -1,56 +1,58 @@
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <climits>
+#include <cstdlib> // srand, rand
+#include <ctime> // time
+#include <iostream> // cout, string
+#include <cstring> // memcpy
 
-const static char ALPHANUMERIC[] = "abcdefghijklmnopqrstuvwxyz0123456789";
-const static size_t ALPHANUMERIC_SIZE = sizeof(ALPHANUMERIC) / sizeof(char);
+struct Data { std::string s1; int n; std::string s2; };
 
-struct Data
-{
-	std::string s1;
-	int n;
-	std::string s2;
-};
+void*	serialize() {
 
-void*
-serialize(void)
-{
-	Data *ptr = new Data();
+	const char	alphanum[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	const int	n = arc4random();
+	char*		data = new char[2 * sizeof(std::string) + sizeof(int)]();
+	std::string	s1, s2;
 
-	ptr->s1.resize(9);
-	ptr->s2.resize(9);
 
-	for (int index = 0; index < 8; ++index)
-	{
-		ptr->s1 += ALPHANUMERIC[rand() % ALPHANUMERIC_SIZE];
-		ptr->s2 += ALPHANUMERIC[rand() % ALPHANUMERIC_SIZE];
+	for (int i=0; i < 8; i++) {
+		s1 += alphanum[arc4random_uniform(sizeof(alphanum))];
+		s2 += alphanum[arc4random_uniform(sizeof(alphanum))];
 	}
 
-	ptr->n = rand() % SHRT_MAX;
+	memcpy(data, &s1, sizeof(s1));
+	memcpy(data + sizeof(s1), &n, sizeof(n));
+	memcpy(data + sizeof(s1) + sizeof(n), &s2, sizeof(s2));
 
-	return (ptr);
+
+	std::cout << "Serialized bytes 1: " << s1 << std::endl;
+	std::cout << "Serialized integer: " << n << std::endl;
+	std::cout << "Serialized bytes 2: "<< s2 << std::endl;
+
+	return data;
 }
 
-Data*
-deserialize(void *raw)
-{
-	return (reinterpret_cast<Data*>(raw));
+Data*	deserialize(void* raw) {
+
+	Data*	data = new Data();
+	char*	raw_data = reinterpret_cast<char*>(raw);
+
+	data->s1 = *reinterpret_cast<std::string*>(raw_data);
+	data->n = *reinterpret_cast<int*>(raw_data + sizeof(std::string));
+	data->s2 = *reinterpret_cast<std::string*>(raw_data + sizeof(std::string) + sizeof(int));
+
+	return data;
 }
 
-int
-main(void)
-{
-	srand(time(NULL));
+int	main(void) {
 
-	void *raw = serialize();
-	Data *data = deserialize(raw);
+	void*	data = serialize();
+	Data*	clean_data = deserialize(data);
 
-	std::cout << "s1: '" << data->s1 << "'" << std::endl;
-	std::cout << " n:  " << data->n << std::endl;
-	std::cout << "s2: '" << data->s2 << "'" << std::endl;
+	std::cout << "Data->s1: " << clean_data->s1 << std::endl;
+	std::cout << "Data->n: " << clean_data->n << std::endl;
+	std::cout << "Data->s2: " << clean_data->s2 << std::endl;
 
-	delete data;
+	delete[] reinterpret_cast<char*>(data);
+	delete clean_data;
 
-	return (EXIT_SUCCESS);
+	return 0;
 }

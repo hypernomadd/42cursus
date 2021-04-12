@@ -1,23 +1,28 @@
-NAME	= ex02
-SRCS	= main.cpp Base.cpp A.cpp B.cpp C.cpp Another.cpp
-OBJS	= $(SRCS:.cpp=.o)
-CPPC	= clang++
-FLAGS	= -g3 -O0 -std=c++98 -Wall -Wextra -Werror
+NAME=identify
 
-.cpp.o:
-	$(CPPC) $(FLAGS) -c $< -o $@
+SRC= main.cpp
+OBJ= $(SRC:%.cpp=%.o)
 
-$(NAME): $(OBJS)
-	$(CPPC) $(FLAGS) $(OBJS) -o $(NAME)
+CC= /usr/bin/clang++
+CFLAGS= -Wall -Werror -Wextra -std=c++98
 
 all: $(NAME)
 
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJS)
+	/bin/rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	/bin/rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all re clean fclean .cpp.o
+run: all
+	./$(NAME)
+
+.PHONY: all clean fclean re run

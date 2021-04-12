@@ -1,69 +1,94 @@
-#include <iostream>
+#include <cstdlib> // srand, rand
+#include <ctime> // time
+#include <iostream> // cout
 
-#include "Base.hpp"
-#include "A.hpp"
-#include "B.hpp"
-#include "C.hpp"
-#include "Another.hpp"
+class Base { public: virtual ~Base() {} };
+class A : public Base {};
+class B : public Base {};
+class C : public Base {};
 
-void
-identify_from_pointer(Base *p)
-{
-	char *type = NULL;
+
+Base*	generate() {
+
+	switch (rand() % 3) {
+		case 0:
+			return dynamic_cast<Base*>(new A);
+
+		case 1:
+			return dynamic_cast<Base*>(new B);
+
+		case 2:
+			return dynamic_cast<Base*>(new C);
+
+		default:
+			return NULL;
+	}
+}
+
+void identify_from_reference(Base& p) {
 
 	try
 	{
-		if (!p)
-			type = (char *) "null ptr";
-		if (dynamic_cast<A*>(p))
-			type = (char *) "A";
-		else if (dynamic_cast<B*>(p))
-			type = (char *) "B";
-		else if (dynamic_cast<C*>(p))
-			type = (char *) "C";
-		else if (dynamic_cast<Base*>(p))
-			type = (char *) "Base";
+		A a_class = dynamic_cast<A&>(p);
+		std::cout << "A" << std::endl;
+		return;
 	}
-	catch (std::exception &e)
+	catch (std::bad_cast& e) {
+		// Do nothing
+	}
+
+	try
 	{
+		B b_class = dynamic_cast<B&>(p);
+		std::cout << "B" << std::endl;
+		return;
+	}
+	catch (std::bad_cast& e) {
+		// Do nothing
 	}
 
-	if (type == NULL)
-		type = (char *) "unknown type";
-
-	std::cout << type << std::endl;
+	try
+	{
+		C c_class = dynamic_cast<C&>(p);
+		std::cout << "C" << std::endl;
+		return;
+	}
+	catch (std::bad_cast& e) {
+		// Do nothing
+	}
 }
 
-void
-identify_from_reference(Base &p)
-{
-	identify_from_pointer(&p);
+void identify_from_pointer(Base* p) {
+
+	A* a_class = dynamic_cast<A*>(p);
+	if (a_class != NULL) {
+		std::cout << "A" << std::endl;
+		return;
+	}
+
+	B* b_class = dynamic_cast<B*>(p);
+	if (b_class != NULL) {
+		std::cout << "B" << std::endl;
+		return;
+	}
+
+	C* c_class = dynamic_cast<C*>(p);
+	if (c_class != NULL) {
+		std::cout << "C" << std::endl;
+		return;
+	}
 }
 
-int
-main(void)
-{
-	Base base;
-	A a;
-	B b;
-	C c;
-	Another another;
+int	main(void) {
 
-	std::cout << "-- from pointer --" << std::endl;
-	identify_from_pointer(&base);
-	identify_from_pointer(&a);
-	identify_from_pointer(&b);
-	identify_from_pointer(&c);
+	srand(time(0));
 
-	std::cout << std::endl << "-- from reference --" << std::endl;
-	identify_from_reference(base);
-	identify_from_reference(a);
-	identify_from_reference(b);
-	identify_from_reference(c);
+	Base* base = generate();
 
-	std::cout << std::endl << "-- a NULL pointer --" << std::endl;
-	identify_from_pointer(NULL);
+	identify_from_pointer(base);
+	identify_from_reference(*base);
 
-	std::cout << std::endl << "-- an unreleated (but casted) value --" << std::endl;
-	identify_from_pointer((Base*)((void*)&another));
+	delete  base;
+
+	return 0;
 }

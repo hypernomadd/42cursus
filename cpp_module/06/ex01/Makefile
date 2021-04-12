@@ -1,23 +1,40 @@
-NAME	= ex01
-SRCS	= main.cpp
-OBJS	= $(SRCS:.cpp=.o)
-CPPC	= clang++
-FLAGS	= -g3 -O0 -std=c++98 -Wall -Wextra -Werror
+# ************************************************************************** #
+#                                                                            #
+#                                                        ::::::::            #
+#   Makefile                                           :+:    :+:            #
+#                                                     +:+                    #
+#   By: tblaudez <tblaudez@student.codam.nl>         +#+                     #
+#                                                   +#+                      #
+#   Created: 2020/09/17 14:41:30 by tblaudez      #+#    #+#                 #
+#   Updated: 2020/10/09 15:33:30 by tblaudez      ########   odam.nl         #
+#                                                                            #
+# ************************************************************************** #
 
-.cpp.o:
-	$(CPPC) $(FLAGS) -c $< -o $@
+NAME=serialize
 
-$(NAME): $(OBJS)
-	$(CPPC) $(FLAGS) $(OBJS) -o $(NAME)
+SRC= main.cpp
+OBJ= $(SRC:%.cpp=%.o)
+
+CC= /usr/bin/clang++
+CFLAGS= -Wall -Werror -Wextra -std=c++98
 
 all: $(NAME)
 
+$(NAME): $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJS)
+	/bin/rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	/bin/rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all re clean fclean .cpp.o
+run: all
+	./$(NAME)
+
+.PHONY: all clean fclean re run
