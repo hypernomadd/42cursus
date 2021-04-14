@@ -10,7 +10,8 @@
 
 typedef std::vector<unsigned int>::iterator it;
 
-class Span {
+class Span 
+{
 public:
     Span(unsigned int n);
     Span(const Span &copy);
@@ -21,8 +22,24 @@ public:
     std::vector<unsigned int>getVector();
     void addNumber(unsigned int value);
     void addNumber(it begin, it end);
+	
+	template<typename T>
+	void addNumbers(T head, T tail)
+	{	
+		if (static_cast<unsigned int>(std::distance(head, tail)) > (n - this->v.size()))
+			throw(Span::NoSpaceException());	
+		else
+		{
+			while (head != tail)
+			{
+				this->v.push_back(*head);
+				head++;
+			}
+		}
+		return ;
+	}
     long long longestSpan();
-    unsigned int shortestSpan();
+    long long shortestSpan();
 
     class NoSpaceException : public std::exception {
     public:
@@ -38,6 +55,5 @@ private:
     std::vector<unsigned int> v;
     Span();
 };
-
 
 # endif
