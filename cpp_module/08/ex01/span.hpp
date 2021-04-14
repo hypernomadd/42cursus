@@ -36,8 +36,8 @@ public:
 		}
 		return ;
 	}
-	unsigned int	shortestSpan(void);
-	unsigned int	longestSpan(void);
+	unsigned long long	shortestSpan(void);
+	unsigned long long	longestSpan(void);
 };
 
 #endif

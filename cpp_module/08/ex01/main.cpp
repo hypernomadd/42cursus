@@ -14,7 +14,18 @@ int			main(void)
 	std::cout << sp.shortestSpan() << std::endl;
 	std::cout << sp.longestSpan() << std::endl;
 
-	std::cout << "-- TooShort Test" << std::endl;
+	std::cout << "-- TooShort Test1 : 0 element" << std::endl;
+	Span empty;
+	try
+	{
+		std::cout << empty.shortestSpan() << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+	}
+	
+	std::cout << "-- TooShort Test2 : 1 element" << std::endl;
 	Span tooShort = Span(1);
 	tooShort.addNumber(1);
 	try

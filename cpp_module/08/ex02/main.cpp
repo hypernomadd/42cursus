@@ -63,5 +63,9 @@ int			main(void)
 		++it;
 	}
 	std::stack<int> s(mstack);
+	std::cout << "copying: are same size? "
+		        << (s.size() == mstack.size() ? "yes" : "no")
+		        << " (supposed to be yes)" << std::endl;
+	
 	return (0);
 }
