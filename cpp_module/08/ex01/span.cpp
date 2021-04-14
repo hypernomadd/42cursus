@@ -1,85 +1,68 @@
-#include <algorithm>
-#include <string>
 #include "span.hpp"
 
-// Canonical form
-Span::Span(void)
-{
-	this->size = 0;
-	this->array.reserve(0);
-	return ;
+Span::Span(unsigned int n) : n(n) {
+
 }
 
-Span::~Span(void)
-{
-	return ;
+Span::Span(const Span &copy) : n(copy.n), v(copy.v) {
+
 }
 
-Span::Span(const Span &span)
-{
-	*this = span;
-	return ;
+Span::~Span() {
+
 }
 
-Span				&Span::operator=(const Span &span)
-{
-	this->size = span.size;
-	this->array = span.array;
-	return (*this);
+Span &Span::operator=(const Span &copy) {
+    if (this == &copy)
+        return *this;
+    this->n = copy.n;
+    this->v = copy.v;
+    return *this;
 }
 
-// functions
-Span::Span(unsigned int size)
-{
-	this->size = size;
-	this->array.reserve(size);
-	return ;
+std::vector<unsigned int> Span::getVector() {
+    return this->v;
 }
 
-void				Span::addNumber(int nb)
-{
-	if (this->array.size() < size)
-		this->array.push_back(nb);
-	else
-		throw(std::length_error("Array is at max size"));
-	return ;
+void Span::addNumber(unsigned int value) {
+    if (this->v.size() >= n)
+        throw Span::NoSpaceException();
+    v.push_back(value);
 }
 
-unsigned long long		Span::shortestSpan(void)
-{
-	std::vector<int>::iterator it;
-	std::vector<int>::iterator it2;
-	unsigned long long min;
-
-	min = std::numeric_limits<unsigned long long>::max();
-	if (this->array.size() >= 2)
-	{
-		for (it = this->array.begin(); it != this->array.end(); it++)
-		{
-			for (it2 = this->array.end(); it2 != it; it2--)
-			{
-				if (min >
-static_cast<unsigned long long>(std::max(*it, *it2) - std::min(*it, *it2)))
-					min = std::max(*it, *it2) - std::min(*it, *it2);
-			}
-		}
-	}
-	else
-		throw(std::length_error("Array is too short"));
-	return (min);	
+void Span::addNumber(it begin, it end) {
+    if (this->v.size() + std::distance(begin, end) > this->n)
+        throw Span::NoSpaceException();
+    this->v.insert(this->v.end(), begin, end);
 }
 
-unsigned long long		Span::longestSpan(void)
-{
-	int max;
-	int min;
-	
-	if (this->array.size() >= 2)
-	{
-		max = *std::max_element(this->array.begin(), this->array.end());
-		min = *std::min_element(this->array.begin(), this->array.end());
-	}	
-	else
-		throw(std::length_error("Array is too short"));
-	return (max - min);
+long long Span::longestSpan() {
+    if (this->v.size() < 2)
+        throw Span::NoSpanException();
+    long long min = *std::min_element(this->v.begin(), this->v.end());
+    long long max = *std::max_element(this->v.begin(), this->v.end());
+    return (max - min);
+}
+
+unsigned int Span::shortestSpan() {
+    if (this->v.size() < 2)
+        throw Span::NoSpanException();
+    unsigned int diff(0);
+    std::vector<unsigned int> v(this->v);
+    std::vector<unsigned int> span(this->v.size());
+
+    std::sort(v.begin(), v.end());
+    unsigned int ret(v.back() - v.front());
+    for (it pos = v.begin() + 1; pos != v.end(); pos++)
+        if ((diff = static_cast<unsigned int>(*pos) - static_cast<unsigned int>(*(pos - 1))) < ret)
+            ret = diff;
+    return ret;
+}
+
+const char* Span::NoSpaceException::what() const throw() {
+    return "No Space Exception.";
+}
+
+const char* Span::NoSpanException::what() const throw() {
+    return "No Span Exception.";
 }

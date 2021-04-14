@@ -1,64 +1,48 @@
 #include "span.hpp"
 
-int			main(void)
+int main()
 {
-	std::cout << "-- Main Given" << std::endl;
-	Span sp = Span(5);
+	Span	sp(5);
 
-	sp.addNumber(5);
 	sp.addNumber(3);
-	sp.addNumber(17);
-	sp.addNumber(9);
-	sp.addNumber(11);
-
-	std::cout << sp.shortestSpan() << std::endl;
-	std::cout << sp.longestSpan() << std::endl;
-
-	std::cout << "-- TooShort Test1 : 0 element" << std::endl;
-	Span empty;
+    std::cout << "1.\n";
 	try
 	{
-		std::cout << empty.shortestSpan() << std::endl;
+		std::cout<<sp.shortestSpan()<<'\n';
 	}
-	catch (std::exception &e)
+	catch(const std::exception &e)
 	{
-		std::cerr << "Error: " << e.what() << std::endl;
-	}
-	
-	std::cout << "-- TooShort Test2 : 1 element" << std::endl;
-	Span tooShort = Span(1);
-	tooShort.addNumber(1);
-	try
-	{
-		std::cout << tooShort.shortestSpan() << std::endl;
-	}
-	catch (std::exception &e)
-	{
-		std::cerr << "Error: " << e.what() << std::endl;
+		std::cerr<<e.what()<<'\n';
 	}
 
-	std::vector<int> vector(10000);
-	std::vector<int>::iterator head = vector.begin();
-	std::vector<int>::iterator tail = vector.end();
-	std::vector<int>::iterator it = head;
-	srand(time(NULL));
-	while (it != tail)
-	{
-		*it = rand();
-		it++;
-	}
-	std::cout << "-- 10000 random values and max size" << std::endl;
-	Span goo = Span(10000);
-	goo.addNumbers(head, tail);
-	std::cout << "ShortestSpan(): " << goo.shortestSpan() << std::endl;
-	std::cout << "LongestSpan(): " << goo.longestSpan() << std::endl;
-	std::cout << "-- MaxSize2 Test" << std::endl;
+	sp.addNumber(4294967295);
+	sp.addNumber(0);
+	sp.addNumber(16);
+	sp.addNumber(1);
+    std::cout << "2.\n";
 	try
 	{
-		goo.addNumbers(head, tail);
+		sp.addNumber(21);
 	}
-	catch (std::exception &e)
+	catch(const std::exception &e)
 	{
-		std::cerr << "Error: " << e.what() << std::endl;
+		std::cerr<<e.what()<<'\n';
 	}
+    std::cout << "3.\n";
+    std::cout<<sp.shortestSpan()<<'\n';
+    std::cout << "4.\n";
+    std::cout<<sp.longestSpan()<<'\n';
+
+
+
+	// std::vector<unsigned int>	temp;
+	// Span sp2(10000);
+
+	// for(int i=0; i<10000; i++)
+	// 	temp.push_back(i*3);
+	// sp2.addNumber(temp.begin(), temp.end());
+    // std::cout << "5.\n";
+    // std::cout<<sp2.shortestSpan()<<'\n';
+    // std::cout << "6.\n";
+    // std::cout<<sp2.longestSpan()<<'\n';
 }

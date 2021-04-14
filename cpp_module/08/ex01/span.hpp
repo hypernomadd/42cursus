@@ -1,43 +1,43 @@
 #ifndef SPAN_HPP
 # define SPAN_HPP
 
-# include <iostream>
 # include <string>
+# include <iostream>
 # include <vector>
+# include <algorithm>
+# include <numeric>
+# include <iterator>
 
-class Span
-{
+typedef std::vector<unsigned int>::iterator it;
+
+class Span {
+public:
+    Span(unsigned int n);
+    Span(const Span &copy);
+    virtual ~Span();
+
+    Span &operator=(const Span &copy);
+
+    std::vector<unsigned int>getVector();
+    void addNumber(unsigned int value);
+    void addNumber(it begin, it end);
+    long long longestSpan();
+    unsigned int shortestSpan();
+
+    class NoSpaceException : public std::exception {
+    public:
+        virtual const char* what() const throw();
+    };
+    class NoSpanException : public std::exception {
+    public:
+        virtual const char* what() const throw();
+    };
 
 private:
-	unsigned int	 size;
-	std::vector<int> array;
-
-
-public:
-	Span(void);
-	~Span(void);
-	Span(const Span &span);
-	Span	&operator=(const Span &span);
-
-	Span(unsigned int size);
-	void			addNumber(int nb);
-	template<typename T>
-	void			addNumbers(T head, T tail)
-	{	
-		if (static_cast<unsigned long>(std::distance(head, tail)) > (size - this->array.size()))
-			throw(std::length_error("Array is at max size"));	
-		else
-		{
-			while (head != tail)
-			{
-				this->array.push_back(*head);
-				head++;
-			}
-		}
-		return ;
-	}
-	unsigned long long	shortestSpan(void);
-	unsigned long long	longestSpan(void);
+    unsigned int n;
+    std::vector<unsigned int> v;
+    Span();
 };
 
-#endif
+
+# endif
